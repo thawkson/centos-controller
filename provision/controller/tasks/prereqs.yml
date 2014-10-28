@@ -1,0 +1,28 @@
+
+- name: Install packages
+  sudo: yes
+  yum: pkg={{ item }} state=installed
+  with_items:
+      - libaio
+      - libaio-devel
+      - wget
+      - libselinux-python
+
+- name: Load network bridge module
+  command: /sbin/modprobe bridge
+  sudo: yes
+
+- name: Set kernel params for a happy controller
+  sysctl: name=fs.file-max value=819200
+  sysctl: name=net.ipv4.tcp_syn_retries value=8 
+  sysctl: name=vm.swappiness value=0
+  sudo: yes
+
+- name: Increase limits on open files
+  lineinfile: dest=/etc/security/limits.conf line="*        soft    nofile        819200"
+  lineinfile: dest=/etc/security/limits.conf line="*        hard    nofile        819200"
+  sudo: yes
+
+- name: Create AppDynamics user 
+  user: name=appd comment="AppDynamics" home="{{ home_dir }}" createhome=yes
+  sudo: yes

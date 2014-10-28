@@ -1,0 +1,16 @@
+- name: Install init script
+  copy: src=init.d.sh dest="{{ install_dir }}/bin" mode=0755 
+  sudo: yes
+  sudo_user: appd
+
+- name: Link init script into init.d folder
+  file: src="{{ install_dir }}/bin/init.d.sh" dest="/etc/init.d/controller" state=link 
+  sudo: yes
+
+- name: Register init script
+  command: /sbin/chkconfig --add controller
+  sudo: yes
+
+- name: Add controller to standard run levels
+  command: /sbin/chkconfig --level 2345 controller on
+  sudo: yes

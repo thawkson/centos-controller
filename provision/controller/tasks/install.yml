@@ -1,0 +1,12 @@
+- name: Copy response file
+  template: src=response.varfile.j2 dest=/tmp/response.varfile mode=0644
+
+- name: Install controller 
+  command: "{{ installer }} -q -varfile /tmp/response.varfile"
+  sudo: yes
+  sudo_user: appd
+
+- name: Install test license 
+  copy: src=license.lic dest="{{ install_dir }}/license.lic"
+  sudo: yes
+  sudo_user: appd

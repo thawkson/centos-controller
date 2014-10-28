@@ -1,0 +1,33 @@
+#install4j response file for AppDynamics Controller 3.9.4.1
+#Tue Oct 28 01:38:21 UTC 2014
+
+sys.languageId=en
+
+sys.installationDir={{ install_dir }}
+realDataDir={{ install_dir }}/db/data
+elasticSearchDataDir={{ install_dir }}/events_service/analytics-processor
+
+mysqlRootUserPassword={{ mysql_root_password }}
+rootUserPassword={{ root_password }}
+userName={{ first_username }}
+password={{ first_password }}
+
+iiopPort=3700
+jmsPort=7676
+databasePort=3388
+restAPIPort=9080
+serverPort=8090
+elasticSearchPort=9200
+adminPort=4848
+sslPort=8181
+restAPIAdminPort=9081
+
+serverHostName=localhost.localdomain
+
+controllerTenancyMode=single
+controllerConfig=demo
+haControllerType=notapplicable
+
+sys.adminRights$Boolean=false
+
+disableEULA=true

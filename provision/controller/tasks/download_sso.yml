@@ -1,0 +1,9 @@
+
+- name: Log into AppDynamics SSO 
+  command: /usr/bin/wget --save-cookies /tmp/cookies.txt --post-data "{{ sso_auth }}" {{ sso_url }}
+  when: st.stat.exists == false
+
+- name: Download latest version of controller
+  command: /usr/bin/wget --content-disposition --load-cookies /tmp/cookies.txt {{ download_url }} -O {{ installer }}
+  when: st.stat.exists == false
+
