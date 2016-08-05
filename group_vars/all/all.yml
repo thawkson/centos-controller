@@ -1,0 +1,42 @@
+# Specify which version to download from the nexus repo:
+Appdynamics_version: 4.2.2.2
+
+controller_Config: demo
+ha_Controller_Type: primary
+controller_Tenancy_Mode: single
+# Initial controller settings. Added to response.varfile and passed to setup:
+mysql_databaseRootUser: root
+mysql_root_password: mysqlroot
+root_password: welcome
+first_username: administrator
+first_password: welcome1
+home_dir: /opt/appdynamics
+eum_Database_Password: welcome1
+key_Store_Password: welcome1
+#This should be set to your controllers IP
+mysql_dbHostName: localhost
+appd_account_name: aaas
+
+#FQDN for euem and controller host or IP Address
+euem_Host:
+controller_Host:
+
+# SSO (an account that download the appdynamics installers from the support portal)
+appd_support_user:
+appd_support_pass:
+sso_auth: username={{ appd_support_user }}&password={{ appd_support_pass }}
+sso_url: https://login.appdynamics.com/sso/login/
+
+# URLs for grabbing the Installers
+
+controller_appdynamics_url: "https://aperture.appdynamics.com/download/prox/download-file/controller"
+Controller_Installer_url: "{{ controller_appdynamics_url }}/controller_64bit_linux-{{ Appdynamics_version }}.sh"
+euem_appdynamics_url: "https://aperture.appdynamics.com/download/prox/download-file/euem-processor/"
+EUEM_Installer_url: "{{ euem_appdynamics_url }}/euem-64bit-linux-{{ Appdynamics_version }}.sh"
+
+
+# Locations to dump the installers
+controller_installer: /tmp/controller_64bit_linux.sh
+euem_installer: /tmp/euem-64bit-linux.sh
+controller_install_dir: "{{ home_dir }}/Controller"
+euem_install_dir: "{{ home_dir }}/EUEM"

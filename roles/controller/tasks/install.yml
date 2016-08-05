@@ -1,0 +1,20 @@
+- name: Copy controller response file
+  template: src=controller.varfile.j2 dest=/tmp/controller.varfile mode=0644
+
+- name: Copy euem response file
+  template: src=euem.varfile.j2 dest=/tmp/euem.varfile mode=0644
+
+- name: Copy Configure-Clustered_EventsService Script to tmp
+  template: src=Configure-Clustered_EventsService.sh.j2 dest=/tmp/Configure-Clustered_EventsService.sh mode=0755
+
+- name: Install controller
+  command: "{{ controller_installer }} -q -varfile /tmp/controller.varfile"
+
+- name: Configure Remote Events Service using Platform Admin
+  command: /tmp/Configure-Clustered-EventsService.sh
+
+- name: Install euem
+  command: "{{ euem_installer }} -q -varfile /tmp/euem.varfile"
+
+- name: Install test license
+  copy: src=license.lic dest="{{ install_dir }}/license.lic"

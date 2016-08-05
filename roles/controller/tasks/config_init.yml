@@ -1,0 +1,11 @@
+- name: Install init script
+  copy: src=init.d.sh dest="{{ install_dir }}/bin" mode=0755
+
+- name: Link init script into init.d folder
+  file: src="{{ install_dir }}/bin/init.d.sh" dest="/etc/init.d/controller" state=link
+
+- name: Register init script
+  command: /sbin/chkconfig --add controller
+
+- name: Add controller to standard run levels
+  command: /sbin/chkconfig --level 2345 controller on

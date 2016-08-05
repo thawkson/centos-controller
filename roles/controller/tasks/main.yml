@@ -1,0 +1,5 @@
+
+- include: prereqs.yml
+- include: download.yml
+- include: install.yml
+- include: config_init.yml
